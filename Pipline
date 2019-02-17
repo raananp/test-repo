@@ -1,0 +1,41 @@
+pipeline {
+
+    agent { label 'Master'}
+  
+  stages {
+    
+    stage('step1 - Running Script On Master') {
+      steps {
+            dir('/tmp/jenkins') {
+            echo 'Running Script On Master'
+            sh './run.sh'
+      }
+    }
+  }
+    stage('Step2 - Running simple echo') {
+        steps {
+            
+                echo 'Running simple echo'
+                echo 'jony'
+        }
+    }
+    
+    stage('Step3 - Echo Parameter') {
+        steps {
+            echo 'Echo Parameter'
+            echo "${user1}"
+        }
+    }
+    
+    stage('Step4 - Passing Arguments in Bash') {
+        steps {
+                dir('/tmp/jenkins') {
+                    ansiColor('xterm') {
+                    sh './run.sh ${user1}'
+                    }
+            }
+        }
+    }
+    
+}
+}
